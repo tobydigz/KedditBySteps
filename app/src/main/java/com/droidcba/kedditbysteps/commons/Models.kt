@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.droidcba.kedditbysteps.commons.adapter.AdapterConstants
 import com.droidcba.kedditbysteps.commons.adapter.ViewType
+import com.google.android.gms.ads.NativeExpressAdView
 
 data class RedditNews(
         val after: String,
@@ -57,4 +58,8 @@ data class RedditNewsItem(
         dest?.writeString(thumbnail)
         dest?.writeString(url)
     }
+}
+
+class DevotionalAd(val ad: NativeExpressAdView):ViewType{
+    override fun getViewType() = AdapterConstants.AD
 }
