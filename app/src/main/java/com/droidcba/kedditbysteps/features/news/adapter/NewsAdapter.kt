@@ -3,6 +3,7 @@ package com.droidcba.kedditbysteps.features.news.adapter
 import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.droidcba.kedditbysteps.commons.DevotionalAd
 import com.droidcba.kedditbysteps.commons.RedditNewsItem
 import com.droidcba.kedditbysteps.commons.adapter.AdapterConstants
 import com.droidcba.kedditbysteps.commons.adapter.ViewType
@@ -11,7 +12,7 @@ import java.util.*
 
 class NewsAdapter(listener: NewsDelegateAdapter.onViewSelectedListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items: ArrayList<ViewType>
+    var items: ArrayList<ViewType>
     private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()
     private val loadingItem = object : ViewType {
         override fun getViewType() = AdapterConstants.LOADING
@@ -20,6 +21,7 @@ class NewsAdapter(listener: NewsDelegateAdapter.onViewSelectedListener) : Recycl
     init {
         delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
         delegateAdapters.put(AdapterConstants.NEWS, NewsDelegateAdapter(listener))
+        delegateAdapters.put(AdapterConstants.AD, AdDelegateAdapter())
         items = ArrayList()
         items.add(loadingItem)
     }
@@ -50,6 +52,11 @@ class NewsAdapter(listener: NewsDelegateAdapter.onViewSelectedListener) : Recycl
         items.addAll(news)
         items.add(loadingItem)
         notifyItemRangeChanged(initPosition, items.size + 1 /* plus loading item */)
+    }
+
+    fun addAd(position:Int, devotionalAd: DevotionalAd){
+        items.add(position, devotionalAd)
+        notifyItemInserted(position)
     }
 
     fun clearAndAddNews(news: List<RedditNewsItem>) {
