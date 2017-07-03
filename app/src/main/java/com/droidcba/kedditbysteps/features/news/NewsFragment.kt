@@ -28,6 +28,11 @@ class NewsFragment : RxBaseFragment(), NewsDelegateAdapter.onViewSelectedListene
     private val ITEMS_PER_AD = 4
     private val TAG = NewsFragment::class.java.simpleName
     private var AD_ID = "ca-app-pub-3940256099942544/1072772517"
+    val adSize by lazy{
+        val scale = resources.displayMetrics.density
+        val adWidth = news_list.width
+        AdSize((adWidth / scale).toInt(), 120)
+    }
 
     override fun onItemSelected(url: String?) {
         if (url.isNullOrEmpty()) {
@@ -121,11 +126,8 @@ class NewsFragment : RxBaseFragment(), NewsDelegateAdapter.onViewSelectedListene
     private fun addNativeExpressAds(start: Int) {
         val adapter = news_list.adapter as NewsAdapter
         val size = adapter.itemCount
-        val scale: Float = resources.displayMetrics.density
         for (i in start..size step ITEMS_PER_AD) {
             val adView = NativeExpressAdView(context)
-            val adWidth = news_list.width
-            val adSize = AdSize((adWidth / scale).toInt(), 150)
             adView.adSize = adSize
             adView.adUnitId = AD_ID
             val devotionalAd = DevotionalAd(adView)
@@ -135,6 +137,7 @@ class NewsFragment : RxBaseFragment(), NewsDelegateAdapter.onViewSelectedListene
     }
 
     private fun loadNativeExpressAd(index: Int) {
+        if (news_list.adapter == null)return
         val adapter = news_list.adapter as NewsAdapter
         if (index >= adapter.itemCount) return
 
