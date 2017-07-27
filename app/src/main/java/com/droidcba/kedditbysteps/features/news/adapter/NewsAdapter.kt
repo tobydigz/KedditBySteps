@@ -3,7 +3,7 @@ package com.droidcba.kedditbysteps.features.news.adapter
 import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.droidcba.kedditbysteps.commons.DevotionalAd
+import com.droidcba.kedditbysteps.commons.AdObject
 import com.droidcba.kedditbysteps.commons.RedditNewsItem
 import com.droidcba.kedditbysteps.commons.adapter.AdapterConstants
 import com.droidcba.kedditbysteps.commons.adapter.ViewType
@@ -54,8 +54,8 @@ class NewsAdapter(listener: NewsDelegateAdapter.onViewSelectedListener) : Recycl
         notifyItemRangeChanged(initPosition, items.size + 1 /* plus loading item */)
     }
 
-    fun addAd(position:Int, devotionalAd: DevotionalAd){
-        items.add(position, devotionalAd)
+    fun addAd(position:Int, adObject: AdObject){
+        items.add(position, adObject)
         notifyItemInserted(position)
     }
 

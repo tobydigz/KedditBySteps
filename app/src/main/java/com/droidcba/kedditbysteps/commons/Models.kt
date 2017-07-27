@@ -60,6 +60,6 @@ data class RedditNewsItem(
     }
 }
 
-class DevotionalAd(val ad: NativeExpressAdView):ViewType{
+class AdObject(val ad: NativeExpressAdView):ViewType{
     override fun getViewType() = AdapterConstants.AD
 }

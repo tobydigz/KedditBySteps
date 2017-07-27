@@ -130,8 +130,8 @@ class NewsFragment : RxBaseFragment(), NewsDelegateAdapter.onViewSelectedListene
             val adView = NativeExpressAdView(context)
             adView.adSize = adSize
             adView.adUnitId = AD_ID
-            val devotionalAd = DevotionalAd(adView)
-            adapter.addAd(i, devotionalAd)
+            val adObject = AdObject(adView)
+            adapter.addAd(i, adObject)
         }
         loadNativeExpressAd(start)
     }
@@ -143,7 +143,7 @@ class NewsFragment : RxBaseFragment(), NewsDelegateAdapter.onViewSelectedListene
 
         val item = adapter.items[index]
         when (item) {
-            is DevotionalAd -> {
+            is AdObject -> {
                 val adView = item.ad
                 adView.adListener = object : AdListener() {
                     override fun onAdLoaded() {
